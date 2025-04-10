@@ -39,7 +39,15 @@
     <ul id="ingredientsList">
       <li> <%= ingredients.protein.name %>, <%= ingredients.protein.preparation %>,</li>
       <li> <%= ingredients.salsa.name %></li>
-      <li>locals.ingredients.toppings</li>
+      <!-- set the list-style-type of yje unordered list to "none" to remove the bullet points -->
+      <ul style="list-style-type: none;">
+        <!-- iterate through the toppings object and display each topping as a list item -->
+        <% for(let i = 0; i < ingredients.toppings.length; i++) { %>
+
+          <li><%=ingredients.toppings[i].quantity%> of <%=ingredients.toppings[i].name%></li>
+
+        <% } %>
+      </ul>
     </ul>
 
     <% } %>
