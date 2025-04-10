@@ -35,7 +35,7 @@ app.post("/recipe", (req, res) => {
   // object with the correct food item that will be sent to the ejs file
   let data = {};
 
-  // find the object where type = body.choice
+  // find the object where the recipe's protein = body.choice
   for (let i = 0; i < recipeArr.length; i++) {
 
     let recipeProtein = recipeArr[i].ingredients.protein.name.toLowerCase();
