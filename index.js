@@ -51,6 +51,8 @@ app.post("/recipe", (req, res) => {
     }
   }
 
+  // may need the method of this request for filtering in the EJS file
+  data.method = req.method;
   console.log("end of function: data = ", data);
   res.render("index", data);
 });
