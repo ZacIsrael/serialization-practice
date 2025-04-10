@@ -4,6 +4,9 @@ import bodyParser from "body-parser";
 const app = express();
 const port = 3000;
 
+// Set EJS as the templating engine
+app.set("view engine", "ejs");
+
 //Step 1: Run the solution.js file without looking at the code.
 //Step 2: You can go to the recipe.json file to see the full structure of the recipeJSON below.
 const recipeJSON =
@@ -19,6 +22,37 @@ app.get("/", (req, res) => {
 app.post("/recipe", (req, res) => {
   //Step 3: Write your code here to make this behave like the solution website.
   //Step 4: Add code to views/index.ejs to use the recieved recipe object.
+  let body = req.body;
+  console.log("request's body = ", body);
+
+  // converts the recipe JSON into an array of objects
+  let recipeArr = JSON.parse(recipeJSON);
+
+  // console.log("typeof(recipeArr) = ", typeof recipeArr);
+  // console.log('Array.isArray(recipeArr) = ', Array.isArray(recipeArr))
+
+  // console.log("recipeArr = ", recipeArr);
+  // object with the correct food item that will be sent to the ejs file
+  let data = {};
+
+  // find the object where type = body.choice
+  for (let i = 0; i < recipeArr.length; i++) {
+
+    let recipeProtein = recipeArr[i].ingredients.protein.name.toLowerCase();
+    console.log("recipeArr[i] = ", recipeArr[i]);
+    console.log("recipeProtein = ", recipeArr[i].ingredients.protein.name.toLowerCase());
+    console.log("body.choice = ", body.choice);
+
+
+    if (recipeProtein === body.choice) {
+      // found the correct object
+      data = recipeArr[i];
+      console.log('for loop: data = ', data);
+    }
+  }
+
+  console.log("end of function: data = ", data);
+  res.render("index", data);
 });
 
 app.listen(port, () => {
