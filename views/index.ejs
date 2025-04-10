@@ -15,17 +15,39 @@
     <button type="submit" value="fish" name="choice">🐟</button>
   </form>
   <div id="recipeContainer" class="hidden">
+    
+    <!-- local allows a null check; if I did not put 'locals' in front 
+     of he field names, I would have recieved an error because EJS acts
+      as if the parameters already exist -->
 
-    <!-- If no recipe yet, show: -->
+      <% if(locals.method && locals.name && locals.ingredients) { %>
+    <% if(method === 'GET'){ %>
+      <!-- if a GET request was sent, that means that no recipe was clicked -->
+      <!-- If no recipe yet, show: -->
     <h2>Pick your favourite taco ingredient 👆</h2>
-    <!-- Else, show the recipe name e.g. <h2>Recipe name</h2>-->
+    <% } else {%>
 
+      
+    <!-- In a real application, I would have added cases for the other request methods
+    but since index.js only sends a GET & POST requests, I'll leave the code as is 
+    because if this block is reached, it has to be a post request. -->
+    <!-- Else, show the recipe name e.g. <h2>Recipe name</h2>-->
+     <h2><%=locals.name%></h2>
+    
+ 
     <h3>Ingredients:</h3>
     <ul id="ingredientsList">
-      <li>Protein name, protein preparation</li>
-      <li>Salsa name</li>
-      <li>Every other topping</li>
+      <li> <%= ingredients.protein.name %>, <%= ingredients.protein.preparation %>,</li>
+      <li> <%= ingredients.salsa.name %></li>
+      <li>locals.ingredients.toppings</li>
     </ul>
+
+    <% } %>
+    <% } else { %>
+
+      <h2>Pick your favourite taco ingredient 👆</h2>
+
+    <% }%>
 
 
 
